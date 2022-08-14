@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { TransactionContext } from './TransactionContext';
 
 const ExpenseTracker = () => {
-    let { transactions, createTransaction ,delTransaction} = useContext(TransactionContext);
+    let { transactions, createTransaction ,delTransaction,upateTransaction} = useContext(TransactionContext);
 
     console.log(transactions)
     const [amount, setAmount] = useState(0);
@@ -23,6 +23,22 @@ const ExpenseTracker = () => {
         }
         console.log(dataTransfer)
         createTransaction(dataTransfer)
+
+    }
+    const upTransaction = (old_id) => {
+            const amount=+prompt('Pleaase Enter Ediable value');
+            const description=prompt('Pleaase Enter Ediable description');
+        if(Number(amount)===0 || !Number(amount)){
+            alert("PLEASE ENTER CORRECT VALUE (i.e) 1,2,3");
+            return false;
+        }
+        const dataTransfer = {
+            description: description,
+            amount: amount
+          
+        }
+        console.log(dataTransfer)
+        upateTransaction(dataTransfer,old_id)
 
     }
 const deleteTransaction=(id)=>{
@@ -74,6 +90,7 @@ function expense(){
                                     <p>{val.amount}</p>
                                     <p>{val.description}</p>
                                     <button onClick={()=>deleteTransaction(val?.id)}>del</button>
+                                    <button onClick={()=>upTransaction(val?.id)}>edit</button>
 
                                 </li>
                             ))

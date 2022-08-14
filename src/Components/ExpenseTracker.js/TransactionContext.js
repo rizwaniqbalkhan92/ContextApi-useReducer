@@ -36,12 +36,25 @@ export const TransactionContext = createContext(initialTransaction);
         })
 
     }
+    function upateTransaction(updateData,old_id) {
+        // console.log(dataTransfer)
+        dispatch({
+            type:"UPDATE_TRANSACTION",
+            payload:{
+                description:updateData.description,
+                amount:Number(updateData.amount),
+                id:old_id
+            }
+        })
+
+    }
 
     return (
         <TransactionContext.Provider value={{
             transactions: state,
             createTransaction,
-            delTransaction
+            delTransaction,
+            upateTransaction
         }}>
             {
                 children
