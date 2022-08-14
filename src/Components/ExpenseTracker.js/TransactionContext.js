@@ -7,10 +7,7 @@ import TransactionReducer from "./TransactionReducer";
 
 
 const initialTransaction = [
-    { description: 'drinks', amount: 400 },
-    { description: 'Cash', amount: 2000 },
-    { description: 'Cash', amount: 2000 },
-    { description: 'Scrape', amount: -200 },
+
 ]
 
 
@@ -25,8 +22,17 @@ export const TransactionContext = createContext(initialTransaction);
             type:"CREATE_TRANSACTION",
             payload:{
                 description:dataTransfer.description,
-                amount:Number(dataTransfer.amount)
+                amount:Number(dataTransfer.amount),
+                id:new Date().getTime()
             }
+        })
+
+    }
+    function delTransaction(id) {
+        // console.log(dataTransfer)
+        dispatch({
+            type:"DELETE_TRANSACTION",
+            payload:id
         })
 
     }
@@ -34,7 +40,8 @@ export const TransactionContext = createContext(initialTransaction);
     return (
         <TransactionContext.Provider value={{
             transactions: state,
-            createTransaction
+            createTransaction,
+            delTransaction
         }}>
             {
                 children

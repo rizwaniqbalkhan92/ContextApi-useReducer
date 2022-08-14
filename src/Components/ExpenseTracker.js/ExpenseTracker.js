@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { TransactionContext } from './TransactionContext';
 
 const ExpenseTracker = () => {
-    let { transactions, createTransaction } = useContext(TransactionContext);
+    let { transactions, createTransaction ,delTransaction} = useContext(TransactionContext);
 
     console.log(transactions)
     const [amount, setAmount] = useState(0);
@@ -19,12 +19,17 @@ const ExpenseTracker = () => {
         const dataTransfer = {
             description: expenseName,
             amount: amount
+          
         }
         console.log(dataTransfer)
         createTransaction(dataTransfer)
 
     }
+const deleteTransaction=(id)=>{
 
+    delTransaction(id)
+
+}
 function income(){
     let incomeAmount=0;
     for(let i=0; i<transactions?.length; i++){
@@ -68,7 +73,7 @@ function expense(){
                                 <li key={index}>
                                     <p>{val.amount}</p>
                                     <p>{val.description}</p>
-                                    <button >del</button>
+                                    <button onClick={()=>deleteTransaction(val?.id)}>del</button>
 
                                 </li>
                             ))
